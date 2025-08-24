@@ -1,0 +1,37 @@
+trigger:
+- master
+
+variables:
+  dockerRegistryServiceConnection: '1f7e30da-3dde-4a2a-81c7-6ef92c5f4859'
+  imageRepository: 'apiaquiles'
+  containerRegistry: 'apiapolo.azurecr.io'
+  dockerfilePath: 'Dockerfile'
+  tag: '$(Build.BuildId)'
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+
+- task: DownloadSecureFile@1
+  displayName: Download appsettings.json
+  name: appsettings
+  inputs:
+    secureFile: 'appsettings.Production.json'
+
+- script: |
+    cp $(appsettings.secureFilePath) Src/Backend/Aquiles.API
+
+- task: Docker@2
+  displayName: Build and push an image to container registry
+  inputs:
+    command: buildAndPush
+    repository: $(imageRepository)
+    dockerfile: $(dockerfilePath)
+    containerRegistry: $(dockerRegistryServiceConnection)
+    tags: |
+      latest
+      $(tag)
+
+    
+    
