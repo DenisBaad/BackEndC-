@@ -1,6 +1,8 @@
 ﻿using Aquiles.Utils.Filters;
 using Aquiles.Utils.Services;
 using Aquiles.Utils.UsuarioLogado;
+using Enderecos.Application.UseCases.Enderecos.Create;
+using Enderecos.Application.UseCases.Enderecos.GetAll;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -16,11 +18,19 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         AdicionarUsuarioLogadoUseCase(services);
+        AdicionarEnderecoUseCase(services);
     }
 
     private static void AdicionarUsuarioLogadoUseCase(IServiceCollection services)
     {
         services.AddScoped<IUsuarioLogado, UsuarioLogado>();
+    }
+
+    private static void AdicionarEnderecoUseCase(IServiceCollection services)
+    {
+        services
+            .AddScoped<ICreateEnderecoUseCase, CreateEnderecoUseCase>()
+            .AddScoped<IGetAllEnderecoUseCase, GetAllEnderecoUseCase>();
     }
 
     private static void AdicionarTokenJWT(IServiceCollection services, IConfiguration configuration)

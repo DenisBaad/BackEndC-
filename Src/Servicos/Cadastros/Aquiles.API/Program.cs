@@ -102,7 +102,7 @@ void MigrateDatabase()
         return;
 
     var connectionString = builder.Configuration.GetNomeConexao(); 
-    Database.CriarDatabase(connectionString, "aquilesss");
+    Database.CriarDatabase(connectionString, "aquiless");
 
     app.MigrateDatabase();
 }

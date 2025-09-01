@@ -7,6 +7,7 @@ public class Version001 : BaseVersion
     public override void Up()
     {
         CreateTable("Enderecos")
+            .WithColumn("UsuarioId").AsGuid().NotNullable()
             .WithColumn("ClienteId").AsGuid().NotNullable()
             .WithColumn("Logradouro").AsString().NotNullable()
             .WithColumn("Numero").AsString().NotNullable()

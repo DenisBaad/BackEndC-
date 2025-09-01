@@ -1,6 +1,8 @@
 ﻿using Aquiles.Utils.Extensions;
 using Enderecos.Domain.Repositories;
+using Enderecos.Domain.Repositories.Enderecos;
 using Enderecos.Infrastructure.Context;
+using Enderecos.Infrastructure.Repositories;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -24,11 +26,19 @@ public static class DependencyInjection
     public static void AddRepositories(IServiceCollection services)
     {
         AddUnitOfWorkRepository(services);
+        AddEnderecoRepository(services);
     }
 
     private static void AddUnitOfWorkRepository(IServiceCollection services)
     {
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+    }
+
+    private static void AddEnderecoRepository(IServiceCollection services)
+    {
+        services
+            .AddScoped<IEnderecoWriteOnlyRepository, EnderecoRepository>()
+            .AddScoped<IEnderecoReadOnlyRepository, EnderecoRepository>();
     }
 
     public static void AddMySqlContext(IServiceCollection services, IConfiguration configuration)
