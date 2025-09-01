@@ -1,12 +1,12 @@
-using Aquiles.Application;
-using Aquiles.Infrastructure;
-using Aquiles.Application.Servicos;
-using Aquiles.Infrastructure.Migrations;
-using Aquiles.API.Filters;
 using Aquiles.API.Middleware;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Aquiles.Infrastructure.Context;
+using Aquiles.Application;
+using Aquiles.Application.Servicos;
 using Aquiles.Application.UseCases.Faturas;
+using Aquiles.Infrastructure;
+using Aquiles.Infrastructure.Context;
+using Aquiles.Utils.Extensions;
+using Aquiles.Utils.Filters;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -99,10 +99,8 @@ void MigrateDatabase()
 {
     if (builder.Configuration.IsUnitTestEnvironment())
         return;
-    
-    var connectionString = builder.Configuration.GetConnectionString("Connection");
-    var serviceScope = app.Services.GetRequiredService<IServiceScopeFactory>().CreateScope();
-    Database.Migrate(connectionString, serviceScope.ServiceProvider);
+
+    app.MigrateDatabase();
 }
 
 public partial class Program { }

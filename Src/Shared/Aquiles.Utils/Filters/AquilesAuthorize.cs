@@ -1,10 +1,10 @@
 ﻿using Aquiles.Communication.Responses;
+using Aquiles.Exception;
 using Aquiles.Exception.AquilesException;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
-using Microsoft.AspNetCore.Mvc.Filters;
 using Microsoft.AspNetCore.Mvc;
-using Aquiles.Exception;
+using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Aquiles.Application.Servicos;
 public class AquilesAuthorize : AuthorizeAttribute, IAsyncAuthorizationFilter

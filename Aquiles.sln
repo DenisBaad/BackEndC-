@@ -35,6 +35,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Servicos", "Servicos", "{A1
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cadastros", "Cadastros", "{0C57D3FA-4D08-4DEF-A493-0E9B2C4DFB37}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquiles.Utils", "Src\Shared\Aquiles.Utils\Aquiles.Utils.csproj", "{68A36754-5E90-43D0-9C79-96182FB36626}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -85,6 +87,10 @@ Global
 		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Release|Any CPU.Build.0 = Release|Any CPU
+		{68A36754-5E90-43D0-9C79-96182FB36626}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{68A36754-5E90-43D0-9C79-96182FB36626}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{68A36754-5E90-43D0-9C79-96182FB36626}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{68A36754-5E90-43D0-9C79-96182FB36626}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -103,6 +109,7 @@ Global
 		{DC1C60F7-0823-49D9-82E9-CD5FD19348E9} = {64765DDC-64F0-472E-8D70-BDDB467CCE4E}
 		{A1AB4EB5-D25C-411E-A92D-B54CCC988ACA} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{0C57D3FA-4D08-4DEF-A493-0E9B2C4DFB37} = {A1AB4EB5-D25C-411E-A92D-B54CCC988ACA}
+		{68A36754-5E90-43D0-9C79-96182FB36626} = {5967785B-627A-4C53-9AFD-F0471AC5A3CB}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {1F6D82A3-F5D3-493A-AEDA-2506420BEC17}

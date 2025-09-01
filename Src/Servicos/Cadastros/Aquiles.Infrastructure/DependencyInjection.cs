@@ -5,6 +5,7 @@ using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Infrastructure.Context;
 using Aquiles.Infrastructure.Repositories;
+using Aquiles.Utils.Extensions;
 using FluentMigrator.Runner;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -74,7 +75,7 @@ public static class DependencyInjection
     {
         var versaoServidor = new MySqlServerVersion(new Version(5, 6));
 
-        var connectionString = configuration.GetConnectionString("Connection");
+        var connectionString = configuration.GetConexaoCompleta();
 
         services.AddDbContext<AquilesContext>(context => context.UseMySql(connectionString, versaoServidor));
     }
@@ -86,7 +87,7 @@ public static class DependencyInjection
 
     private static void AddFluentMigrator_MySql(IServiceCollection services, IConfiguration configuration)
     {
-        var connectionString = configuration.GetConnectionString("Connection");
+        var connectionString = configuration.GetConexaoCompleta();
 
         services.AddFluentMigratorCore().ConfigureRunner(options => options.AddMySql5().WithGlobalConnectionString(connectionString).ScanIn(Assembly.Load("Aquiles.Infrastructure")).For.All());
     }

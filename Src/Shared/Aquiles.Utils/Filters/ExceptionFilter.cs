@@ -1,10 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc.Filters;
-using Microsoft.AspNetCore.Mvc;
-using System.Net;
+﻿using System.Net;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Communication.Responses;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Filters;
 
-namespace Aquiles.API.Filters;
+namespace Aquiles.Utils.Filters;
 
 public class ExceptionFilter : IExceptionFilter
 {
