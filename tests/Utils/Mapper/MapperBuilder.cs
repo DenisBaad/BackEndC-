@@ -1,5 +1,5 @@
-﻿using AutoMapper;
-using Aquiles.Application.Servicos;
+﻿using Aquiles.Application.Servicos;
+using AutoMapper;
 
 namespace CommonTestUtilities.Mapper;
 public class MapperBuilder

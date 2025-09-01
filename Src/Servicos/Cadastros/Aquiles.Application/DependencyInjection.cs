@@ -1,6 +1,4 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
+﻿using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
 using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
@@ -16,6 +14,9 @@ using Aquiles.Application.UseCases.Planos.GetById;
 using Aquiles.Application.UseCases.Planos.Update;
 using Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
 using Aquiles.Application.UseCases.Usuarios.Create;
+using Aquiles.Utils.Filters;
+using Aquiles.Utils.Services;
+using Aquiles.Utils.UsuarioLogado;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 

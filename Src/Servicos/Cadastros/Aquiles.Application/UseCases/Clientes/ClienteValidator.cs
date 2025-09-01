@@ -1,6 +1,6 @@
-﻿using Aquiles.Application.Helpers;
-using Aquiles.Communication.Requests.Clientes;
+﻿using Aquiles.Communication.Requests.Clientes;
 using Aquiles.Exception;
+using Aquiles.Utils.Helpers;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Text.RegularExpressions;

@@ -1,11 +1,11 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Application.UseCases.Faturas.Create;
+﻿using Aquiles.Application.UseCases.Faturas.Create;
 using Aquiles.Application.UseCases.Faturas.GetAll;
 using Aquiles.Application.UseCases.Faturas.Update;
 using Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
 using Aquiles.Communication.Enums;
 using Aquiles.Communication.Requests.Faturas;
 using Aquiles.Communication.Responses.Faturas;
+using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;

@@ -4,8 +4,8 @@ using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Domain.Repositories;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
-using Aquiles.Application.Servicos.UsuarioLogado;
 using Aquiles.Communication.Responses.Planos;
+using Aquiles.Utils.UsuarioLogado;
 
 namespace Aquiles.Application.UseCases.Planos.Create;
 public class CreatePlanoUseCase : ICreatePlanoUseCase

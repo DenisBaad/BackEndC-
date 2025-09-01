@@ -1,9 +1,9 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Communication.Requests.Faturas;
+﻿using Aquiles.Communication.Requests.Faturas;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories;
 using Aquiles.Domain.Repositories.Faturas;
 using Aquiles.Exception.AquilesException;
+using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 
 namespace Aquiles.Application.UseCases.Faturas.Create;

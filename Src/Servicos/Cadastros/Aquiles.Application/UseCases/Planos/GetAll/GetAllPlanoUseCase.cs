@@ -1,7 +1,7 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Communication.Responses.Planos;
+﻿using Aquiles.Communication.Responses.Planos;
 using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Exception.AquilesException;
+using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 
 namespace Aquiles.Application.UseCases.Planos.GetAll;

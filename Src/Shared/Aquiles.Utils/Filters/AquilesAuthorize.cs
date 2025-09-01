@@ -5,8 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using Aquiles.Utils.Services;
 
-namespace Aquiles.Application.Servicos;
+namespace Aquiles.Utils.Filters;
 public class AquilesAuthorize : AuthorizeAttribute, IAsyncAuthorizationFilter
 {
     private readonly TokenController _tokenController;

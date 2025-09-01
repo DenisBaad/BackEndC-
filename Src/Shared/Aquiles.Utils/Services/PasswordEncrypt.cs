@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace Aquiles.Application.Servicos;
+namespace Aquiles.Utils.Services;
 public class PasswordEncrypt
 {
     private readonly string _chaveAdicional;

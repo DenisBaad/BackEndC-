@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.Globalization;
 
-namespace Aquiles.API.Middleware;
+namespace Aquiles.Utils.Middleware;
 
 public class CultureMiddleware
 {

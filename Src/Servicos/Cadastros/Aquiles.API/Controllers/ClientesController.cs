@@ -1,5 +1,4 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
+﻿using Aquiles.Application.UseCases.Clientes.AtivarOuInativar;
 using Aquiles.Application.UseCases.Clientes.Create;
 using Aquiles.Application.UseCases.Clientes.Delete;
 using Aquiles.Application.UseCases.Clientes.GetAll;
@@ -7,6 +6,7 @@ using Aquiles.Application.UseCases.Clientes.GetById;
 using Aquiles.Application.UseCases.Clientes.Update;
 using Aquiles.Communication.Requests.Clientes;
 using Aquiles.Communication.Responses.Clientes;
+using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;

@@ -1,4 +1,4 @@
-﻿using Aquiles.Application.Servicos;
+﻿using Aquiles.Utils.Services;
 
 namespace CommonTestUtilities.Token;
 public class TokenControllerBuilder

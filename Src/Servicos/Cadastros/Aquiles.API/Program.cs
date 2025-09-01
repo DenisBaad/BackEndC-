@@ -1,4 +1,3 @@
-using Aquiles.API.Middleware;
 using Aquiles.Application;
 using Aquiles.Application.Servicos;
 using Aquiles.Application.UseCases.Faturas;
@@ -6,6 +5,8 @@ using Aquiles.Infrastructure;
 using Aquiles.Infrastructure.Context;
 using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Filters;
+using Aquiles.Utils.Middleware;
+using Aquiles.Utils.Services;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -99,6 +100,9 @@ void MigrateDatabase()
 {
     if (builder.Configuration.IsUnitTestEnvironment())
         return;
+
+    var connectionString = builder.Configuration.GetNomeConexao(); 
+    Database.CriarDatabase(connectionString, "aquilesss");
 
     app.MigrateDatabase();
 }

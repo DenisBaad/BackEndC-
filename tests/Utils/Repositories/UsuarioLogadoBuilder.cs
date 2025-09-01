@@ -1,4 +1,4 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
+﻿using Aquiles.Utils.UsuarioLogado;
 using Moq;
 
 namespace CommonTestUtilities.Repositories;

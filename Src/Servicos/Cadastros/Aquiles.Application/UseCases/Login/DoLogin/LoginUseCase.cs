@@ -1,8 +1,8 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Communication.Requests.Login;
+﻿using Aquiles.Communication.Requests.Login;
 using Aquiles.Communication.Responses.Login;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Exception.AquilesException;
+using Aquiles.Utils.Services;
 
 namespace Aquiles.Application.UseCases.Login.DoLogin;
 public class LoginUseCase : ILoginUseCase

@@ -1,11 +1,11 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Communication.Enums;
+﻿using Aquiles.Communication.Enums;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Domain.Repositories.Faturas;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories.Planos;
+using Aquiles.Utils.UsuarioLogado;
 
 namespace Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
 

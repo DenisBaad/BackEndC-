@@ -2,7 +2,7 @@
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 
-namespace Aquiles.Application.Servicos;
+namespace Aquiles.Utils.Services;
 public class TokenController
 {
     private const string EmailAlias = "eml";

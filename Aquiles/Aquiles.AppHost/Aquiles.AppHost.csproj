@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\Servicos\Cadastros\Aquiles.API\Aquiles.API.csproj" />
+    <ProjectReference Include="..\..\Src\Servicos\Enderecos\Enderecos.API\Enderecos.API.csproj" />
   </ItemGroup>
 
 </Project>

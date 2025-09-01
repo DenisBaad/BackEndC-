@@ -1,4 +1,4 @@
-﻿namespace Aquiles.Application.Helpers;
+﻿namespace Aquiles.Utils.Helpers;
 public static class ValidaCPF
 {
     public static bool IsCpf(string cpf)

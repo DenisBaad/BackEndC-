@@ -1,5 +1,6 @@
 ﻿using Aquiles.Communication.Requests.Login;
 using Aquiles.Exception;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 using Newtonsoft.Json;
 using System.Globalization;
 using System.Text;

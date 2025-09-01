@@ -1,4 +1,4 @@
-﻿namespace Aquiles.Application.Helpers;
+﻿namespace Aquiles.Utils.Helpers;
 public static class ValidaCNPJ
 {
     public static bool IsCnpj(string cnpj)

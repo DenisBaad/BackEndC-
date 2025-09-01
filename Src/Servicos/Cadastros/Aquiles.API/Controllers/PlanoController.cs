@@ -1,10 +1,10 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Application.UseCases.Planos.Create;
+﻿using Aquiles.Application.UseCases.Planos.Create;
 using Aquiles.Application.UseCases.Planos.GetAll;
 using Aquiles.Application.UseCases.Planos.GetById;
 using Aquiles.Application.UseCases.Planos.Update;
 using Aquiles.Communication.Requests.Planos;
 using Aquiles.Communication.Responses.Planos;
+using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Aquiles.API.Controllers;

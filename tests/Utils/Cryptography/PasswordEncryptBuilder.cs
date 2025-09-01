@@ -1,4 +1,4 @@
-﻿using Aquiles.Application.Servicos;
+﻿using Aquiles.Utils.Services;
 
 namespace CommonTestUtilities.Cryptography;
 public class PasswordEncryptBuilder

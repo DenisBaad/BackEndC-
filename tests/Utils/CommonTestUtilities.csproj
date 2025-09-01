@@ -14,7 +14,10 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\Backend\Aquiles.Application\Aquiles.Application.csproj" />
+    <ProjectReference Include="..\..\Src\Servicos\Cadastros\Aquiles.Application\Aquiles.Application.csproj" />
+    <ProjectReference Include="..\..\Src\Servicos\Cadastros\Aquiles.Domain\Aquiles.Domain.csproj" />
     <ProjectReference Include="..\..\Src\Shared\Aquiles.Communication\Aquiles.Communication.csproj" />
+    <ProjectReference Include="..\..\Src\Shared\Aquiles.Utils\Aquiles.Utils.csproj" />
   </ItemGroup>
 
 </Project>

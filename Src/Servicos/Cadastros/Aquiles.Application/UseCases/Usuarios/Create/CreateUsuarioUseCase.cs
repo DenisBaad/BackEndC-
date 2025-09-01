@@ -1,11 +1,11 @@
-﻿using Aquiles.Application.Servicos;
-using Aquiles.Communication.Requests.Usuarios;
+﻿using Aquiles.Communication.Requests.Usuarios;
 using Aquiles.Communication.Responses.Usuarios;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Exception;
 using Aquiles.Exception.AquilesException;
+using Aquiles.Utils.Services;
 using AutoMapper;
 
 namespace Aquiles.Application.UseCases.Usuarios.Create;

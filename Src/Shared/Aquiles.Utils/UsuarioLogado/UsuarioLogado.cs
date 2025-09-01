@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Http;
+﻿using Aquiles.Utils.Services;
+using Microsoft.AspNetCore.Http;
 
-namespace Aquiles.Application.Servicos.UsuarioLogado;
+namespace Aquiles.Utils.UsuarioLogado;
 public class UsuarioLogado : IUsuarioLogado
 {
     private readonly IHttpContextAccessor _httpContextAccessor;

@@ -1,7 +1,7 @@
-﻿using Aquiles.Application.Servicos.UsuarioLogado;
-using Aquiles.Communication.Responses.Clientes;
+﻿using Aquiles.Communication.Responses.Clientes;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Exception.AquilesException;
+using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 
 namespace Aquiles.Application.UseCases.Clientes.GetAll;
