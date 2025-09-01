@@ -14,8 +14,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Shared\Aquiles.Communication\Aquiles.Communication.csproj" />
-    <ProjectReference Include="..\..\Shared\Aquiles.Exception\Aquiles.Exception.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aquiles.Communication\Aquiles.Communication.csproj" />
+    <ProjectReference Include="..\..\..\Shared\Aquiles.Exception\Aquiles.Exception.csproj" />
     <ProjectReference Include="..\Aquiles.Application\Aquiles.Application.csproj" />
     <ProjectReference Include="..\Aquiles.Infrastructure\Aquiles.Infrastructure.csproj" />
   </ItemGroup>

@@ -14,7 +14,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Src\Backend\Aquiles.API\Aquiles.API.csproj" />
+    <ProjectReference Include="..\..\Src\Servicos\Cadastros\Aquiles.API\Aquiles.API.csproj" />
   </ItemGroup>
 
 </Project>
