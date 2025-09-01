@@ -31,6 +31,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "UseCases", "tests\UseCases\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApi.Test", "tests\WebApi.Test\WebApi.Test.csproj", "{DC1C60F7-0823-49D9-82E9-CD5FD19348E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aquiles.AppHost", "Aquiles\Aquiles.AppHost\Aquiles.AppHost.csproj", "{89D134C6-4104-45A8-9FE6-3B68DCD33856}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -77,6 +79,10 @@ Global
 		{DC1C60F7-0823-49D9-82E9-CD5FD19348E9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DC1C60F7-0823-49D9-82E9-CD5FD19348E9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DC1C60F7-0823-49D9-82E9-CD5FD19348E9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{89D134C6-4104-45A8-9FE6-3B68DCD33856}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
