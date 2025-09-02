@@ -7,7 +7,7 @@ using CommonTestUtilities.Repositories.Planos;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 
-namespace UseCases.Planos.Create;
+namespace UseCases.Test.Planos.Create;
 public class CreatePlanoUseCaseTest
 {
     [Fact]

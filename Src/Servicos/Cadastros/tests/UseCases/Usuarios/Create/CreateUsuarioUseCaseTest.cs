@@ -8,7 +8,7 @@ using CommonTestUtilities.Repositories.Usuarios;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 
-namespace UseCases.Usuarios.Create;
+namespace UseCases.Test.Usuarios.Create;
 public class CreateUsuarioUseCaseTest
 {
     [Fact]

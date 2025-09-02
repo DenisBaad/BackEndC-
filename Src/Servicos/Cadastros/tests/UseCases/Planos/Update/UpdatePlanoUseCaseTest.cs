@@ -9,7 +9,7 @@ using CommonTestUtilities.Repositories.Planos;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
 
-namespace UseCases.Planos.Update;
+namespace UseCases.Test.Planos.Update;
 public class UpdatePlanoUseCaseTest
 {
     [Fact]

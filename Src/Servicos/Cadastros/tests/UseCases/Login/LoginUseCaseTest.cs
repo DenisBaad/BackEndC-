@@ -9,7 +9,7 @@ using CommonTestUtilities.Repositories.Usuarios;
 using CommonTestUtilities.Token;
 using FluentAssertions;
 
-namespace UseCases.Login;
+namespace UseCases.Test.Login;
 public class LoginUseCaseTest
 {
     [Fact]
