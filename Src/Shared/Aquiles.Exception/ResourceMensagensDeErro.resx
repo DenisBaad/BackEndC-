@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BAIRRO_OBRIGATORIO" xml:space="preserve">
+    <value>O bairro é obrigatório</value>
+  </data>
+  <data name="CEP_OBRIGATORIO" xml:space="preserve">
+    <value>O cep é obrigatório</value>
+  </data>
   <data name="CNPJCPF_TAMANHO_INVALIDO" xml:space="preserve">
     <value>O Campo CPFCNPJ não pode ter menos que 11 e nem mais que 14 números</value>
   </data>
@@ -137,6 +143,9 @@
   </data>
   <data name="EMAIL_USUARIO_JA_CADASTRADO" xml:space="preserve">
     <value>O Usuário informado já esta cadastrado no banco de dados.</value>
+  </data>
+  <data name="ESTADO_OBRIGATORIO" xml:space="preserve">
+    <value>O estado é obrigatório</value>
   </data>
   <data name="FATURA_FIM_VIGENCIA_OBRIGATORIA" xml:space="preserve">
     <value>A data de fim da vigência da fatura é obrigatória.</value>
@@ -159,6 +168,12 @@
   <data name="LOGIN_INVALIDO" xml:space="preserve">
     <value>Parâmetros de login inválidos</value>
   </data>
+  <data name="LOGRADOURO_OBRIGATORIO" xml:space="preserve">
+    <value>O logradouro é obrigatório</value>
+  </data>
+  <data name="MUNICIPIO_OBRIGATORIO" xml:space="preserve">
+    <value>O municipio é obrigatório</value>
+  </data>
   <data name="NOME_CLIENTE_TAMANHO_INVALIDO" xml:space="preserve">
     <value>O Nome do cliente deve ter no mínimo 3 e no máximo 45 caracteres</value>
   </data>
@@ -173,6 +188,9 @@
   </data>
   <data name="NOME_USUARIO_EMBRANCO" xml:space="preserve">
     <value>O Nome do usuário deve ser informado.</value>
+  </data>
+  <data name="NUMERO_OBRIGATORIO" xml:space="preserve">
+    <value>O número é obrigatório</value>
   </data>
   <data name="ORGAO_EXPEDIDOR_CARACTERES_ESPECIAIS" xml:space="preserve">
     <value>O Órgão expedidor não poderá conter caracteres especiais</value>

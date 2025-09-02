@@ -1,5 +1,6 @@
 ﻿using Aquiles.Communication.Requests.Enderecos;
 using Aquiles.Communication.Responses.Enderecos;
+using Aquiles.Exception.AquilesException;
 using AutoMapper;
 using Enderecos.Domain.Entities;
 using Enderecos.Domain.Repositories;
@@ -24,6 +25,7 @@ public class CreateEnderecoUseCase : ICreateEnderecoUseCase
 
     public async Task<ResponseEnderecoJson> Execute(RequestEnderecoJson request)
     {
+        Validate(request);
         var endereco = _mapper.Map<Endereco>(request);
         endereco.Id = Guid.NewGuid();
         await _enderecoWriteRepository.Create(endereco);
@@ -33,5 +35,16 @@ public class CreateEnderecoUseCase : ICreateEnderecoUseCase
         {
             Id = endereco.Id,
         };
+    }
+
+    private void Validate(RequestEnderecoJson request)
+    {
+        var result = new EnderecoValidator().Validate(request);
+
+        if (!result.IsValid)
+        {
+            var errorMessages = result.Errors.Select(e => e.ErrorMessage).ToList();
+            throw new ValidationErrorException(errorMessages);
+        }
     }
 }

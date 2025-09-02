@@ -117,6 +117,12 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="BAIRRO_OBRIGATORIO" xml:space="preserve">
+    <value>El barrio es obligatorio.</value>
+  </data>
+  <data name="CEP_OBRIGATORIO" xml:space="preserve">
+    <value>El código postal es obligatorio.</value>
+  </data>
   <data name="CNPJCPF_TAMANHO_INVALIDO" xml:space="preserve">
     <value>El campo CPFCNPJ no puede tener menos de 11 ni más de 14 números.</value>
   </data>
@@ -138,6 +144,9 @@
   <data name="EMAIL_USUARIO_JA_CADASTRADO" xml:space="preserve">
     <value>El usuario informado ya está registrado en la base de datos.</value>
   </data>
+  <data name="ESTADO_OBRIGATORIO" xml:space="preserve">
+    <value>El estado es obligatorio.</value>
+  </data>
   <data name="FATURA_FIM_VIGENCIA_OBRIGATORIA" xml:space="preserve">
     <value>La fecha de finalización de la vigencia de la factura es obligatoria.</value>
   </data>
@@ -158,6 +167,12 @@
   </data>
   <data name="LOGIN_INVALIDO" xml:space="preserve">
     <value>Parámetros de inicio de sesión inválidos.</value>
+  </data>
+  <data name="LOGRADOURO_OBRIGATORIO" xml:space="preserve">
+    <value>La dirección es obligatoria.</value>
+  </data>
+  <data name="MUNICIPIO_OBRIGATORIO" xml:space="preserve">
+    <value>El municipio es obligatorio.</value>
   </data>
   <data name="NOME_CLIENTE_TAMANHO_INVALIDO" xml:space="preserve">
     <value>El nombre del cliente debe tener como mínimo 3 y como máximo 45 caracteres.</value>
@@ -183,6 +198,9 @@
 
 
 Perguntar ao ChatGPT</value>
+  </data>
+  <data name="NUMERO_OBRIGATORIO" xml:space="preserve">
+    <value>El número es obligatorio.</value>
   </data>
   <data name="ORGAO_EXPEDIDOR_CARACTERES_ESPECIAIS" xml:space="preserve">
     <value>El órgano expedidor no podrá contener caracteres especiales.</value>

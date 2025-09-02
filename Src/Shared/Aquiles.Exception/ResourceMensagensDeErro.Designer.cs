@@ -61,6 +61,24 @@ namespace Aquiles.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O bairro é obrigatório.
+        /// </summary>
+        public static string BAIRRO_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("BAIRRO_OBRIGATORIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O cep é obrigatório.
+        /// </summary>
+        public static string CEP_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("CEP_OBRIGATORIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O CNPJ informado é inválido.
         /// </summary>
         public static string CNPJ_INVALIDO {
@@ -120,6 +138,15 @@ namespace Aquiles.Exception {
         public static string EMAIL_USUARIO_JA_CADASTRADO {
             get {
                 return ResourceManager.GetString("EMAIL_USUARIO_JA_CADASTRADO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O estado é obrigatório.
+        /// </summary>
+        public static string ESTADO_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("ESTADO_OBRIGATORIO", resourceCulture);
             }
         }
         
@@ -187,6 +214,24 @@ namespace Aquiles.Exception {
         }
         
         /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O logradouro é obrigatório.
+        /// </summary>
+        public static string LOGRADOURO_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("LOGRADOURO_OBRIGATORIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O municipio é obrigatório.
+        /// </summary>
+        public static string MUNICIPIO_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("MUNICIPIO_OBRIGATORIO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Consulta uma cadeia de caracteres localizada semelhante a O Nome do cliente deve ter no mínimo 3 e no máximo 45 caracteres.
         /// </summary>
         public static string NOME_CLIENTE_TAMANHO_INVALIDO {
@@ -228,6 +273,15 @@ namespace Aquiles.Exception {
         public static string NOME_USUARIO_EMBRANCO {
             get {
                 return ResourceManager.GetString("NOME_USUARIO_EMBRANCO", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Consulta uma cadeia de caracteres localizada semelhante a O número é obrigatório.
+        /// </summary>
+        public static string NUMERO_OBRIGATORIO {
+            get {
+                return ResourceManager.GetString("NUMERO_OBRIGATORIO", resourceCulture);
             }
         }
         
