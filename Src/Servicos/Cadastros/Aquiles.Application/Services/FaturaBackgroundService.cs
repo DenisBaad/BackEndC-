@@ -6,7 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace Aquiles.Application.UseCases.Faturas;
+namespace Aquiles.Application.Services;
 public class FaturaBackgroundService : BackgroundService
 {
     private readonly IServiceProvider _serviceProvider;

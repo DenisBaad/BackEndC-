@@ -1,6 +1,6 @@
 using Aquiles.Application;
+using Aquiles.Application.Services;
 using Aquiles.Application.Services.AutoMapper;
-using Aquiles.Application.UseCases.Faturas;
 using Aquiles.Infrastructure;
 using Aquiles.Infrastructure.Context;
 using Aquiles.Utils.Extensions;
@@ -30,7 +30,6 @@ builder.Services.AddApplication(builder.Configuration);
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddMvc(option => option.Filters.Add(typeof(ExceptionFilter)));
 builder.Services.AddScoped(x => new AutoMapper.MapperConfiguration(builder => builder.AddProfile(new AutoMapperConfig())).CreateMapper());
-builder.Services.AddHostedService<FaturaBackgroundService>();
 builder.Services.AddHttpContextAccessor();
 
 builder.Services.AddSwaggerGen(option =>
@@ -59,6 +58,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+builder.Services.AddHostedService<FaturaBackgroundService>();
 
 builder.Services.AddHealthChecks().AddDbContextCheck<AquilesContext>();
 
