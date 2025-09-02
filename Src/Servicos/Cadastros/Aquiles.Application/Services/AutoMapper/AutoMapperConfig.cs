@@ -9,7 +9,7 @@ using Aquiles.Communication.Responses.Usuarios;
 using Aquiles.Domain.Entities;
 using AutoMapper;
 
-namespace Aquiles.Application.Servicos;
+namespace Aquiles.Application.Services.AutoMapper;
 public class AutoMapperConfig : Profile
 {
     public AutoMapperConfig()

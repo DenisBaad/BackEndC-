@@ -3,11 +3,11 @@ using Enderecos.Infrastructure;
 using Aquiles.Utils.Filters;
 using Aquiles.Utils.Middleware;
 using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Enderecos.Application.Servicos;
 using Enderecos.Infrastructure.Context;
 using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Services;
 using Enderecos.Infrastructure.Services;
+using Enderecos.Application.Services.AutoMapper;
 
 var builder = WebApplication.CreateBuilder(args);
 

@@ -3,7 +3,7 @@ using Aquiles.Communication.Responses.Enderecos;
 using AutoMapper;
 using Enderecos.Domain.Entities;
 
-namespace Enderecos.Application.Servicos;
+namespace Enderecos.Application.Services.AutoMapper;
 public class AutoMapperConfig : Profile
 {
     public AutoMapperConfig()

@@ -1,5 +1,5 @@
 using Aquiles.Application;
-using Aquiles.Application.Servicos;
+using Aquiles.Application.Services.AutoMapper;
 using Aquiles.Application.UseCases.Faturas;
 using Aquiles.Infrastructure;
 using Aquiles.Infrastructure.Context;

@@ -24,41 +24,46 @@ public class CreateClienteConsumerService : BackgroundService
         _scopeFactory = scopeFactory;
     }
 
-    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        var config = new ConsumerConfig
+        Task.Run(async () =>
         {
-            BootstrapServers = _configuration.GetSection("Kafka:BootstrapServers").Value,
-            GroupId = _configuration.GetSection("Kafka:GroupId").Value,
-            AutoOffsetReset = AutoOffsetReset.Earliest
-        };
-
-        using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
-        consumer.Subscribe("clientes-criados");
-
-        try
-        {
-            while (!stoppingToken.IsCancellationRequested)
+            var config = new ConsumerConfig
             {
-                var cr = consumer.Consume(stoppingToken);
-                var evento = JsonConvert.DeserializeObject<ClienteEvent>(cr.Message.Value);
+                BootstrapServers = _configuration.GetSection("Kafka:BootstrapServers").Value,
+                GroupId = _configuration.GetSection("Kafka:GroupId").Value,
+                AutoOffsetReset = AutoOffsetReset.Earliest
+            };
 
-                if (evento != null)
+            using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
+            consumer.Subscribe("clientes-criados");
+
+            try
+            {
+                while (!stoppingToken.IsCancellationRequested)
                 {
-                    _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId} - Usuário {evento.UsuarioId}");
-                    
-                    using var scope = _scopeFactory.CreateScope();
-                    var createEnderecoUseCase = scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>();
+                    var cr = consumer.Consume(stoppingToken);
+                    var evento = JsonConvert.DeserializeObject<ClienteEvent>(cr.Message.Value);
 
-                    evento.Endereco.ClienteId = evento.ClienteId;
-                    evento.Endereco.UsuarioId = evento.UsuarioId;
-                    await createEnderecoUseCase.Execute(evento.Endereco);
+                    if (evento != null)
+                    {
+                        _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId} - Usuário {evento.UsuarioId}");
+
+                        using var scope = _scopeFactory.CreateScope();
+                        var createEnderecoUseCase = scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>();
+
+                        evento.Endereco.ClienteId = evento.ClienteId;
+                        evento.Endereco.UsuarioId = evento.UsuarioId;
+                        await createEnderecoUseCase.Execute(evento.Endereco);
+                    }
                 }
             }
-        }
-        catch (OperationCanceledException)
-        {
-            consumer.Close();
-        }
+            catch (OperationCanceledException)
+            {
+                consumer.Close();
+            }
+        }, stoppingToken);
+
+        return Task.CompletedTask;
     }
 }
