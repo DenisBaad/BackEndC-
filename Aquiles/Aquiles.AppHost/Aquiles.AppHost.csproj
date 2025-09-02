@@ -18,4 +18,8 @@
     <ProjectReference Include="..\..\Src\Servicos\Enderecos\Enderecos.API\Enderecos.API.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Infra\Kafka\" />
+  </ItemGroup>
+
 </Project>

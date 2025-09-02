@@ -1,4 +1,5 @@
 ﻿using Aquiles.Communication.Enums;
+using Aquiles.Communication.Requests.Enderecos;
 
 namespace Aquiles.Communication.Requests.Clientes;
 public class RequestCreateClientesJson
@@ -13,4 +14,5 @@ public class RequestCreateClientesJson
     public DateTime? DataNascimento { get; set; }
     public string? NomeFantasia { get; set; }
     public string Contato { get; set; }
+    public RequestEnderecoJson Endereco { get; set; }
 }

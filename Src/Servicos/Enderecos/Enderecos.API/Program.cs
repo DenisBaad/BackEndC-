@@ -7,6 +7,7 @@ using Enderecos.Application.Servicos;
 using Enderecos.Infrastructure.Context;
 using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Services;
+using Enderecos.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -57,6 +58,8 @@ builder.Services.AddSwaggerGen(option =>
         }
     });
 });
+
+builder.Services.AddHostedService<CreateClienteConsumerService>();
 
 builder.Services.AddHealthChecks().AddDbContextCheck<EnderecosContext>();
 

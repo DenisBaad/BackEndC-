@@ -17,6 +17,7 @@ using Aquiles.Application.UseCases.Usuarios.Create;
 using Aquiles.Utils.Filters;
 using Aquiles.Utils.Services;
 using Aquiles.Utils.UsuarioLogado;
+using Confluent.Kafka;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -26,6 +27,7 @@ public static class DependencyInjection
     public static void AddApplication(this IServiceCollection services, IConfiguration configurationManager)
     {
         AddRepositories(services);
+        AdicionarKafka(services, configurationManager);
         AdicionarChaveAdicionalToken(services, configurationManager);
         AdicionarTokenJWT(services, configurationManager);
     }
@@ -99,5 +101,15 @@ public static class DependencyInjection
         services.AddScoped(option => new AquilesAuthorize(new TokenController(
                 configuration.GetSection("Configuracoes:Jwt:TokenKey").Value,
                 int.Parse(configuration.GetSection("Configuracoes:Jwt:LifeTimeMinutes").Value))));
+    }
+
+    private static void AdicionarKafka(IServiceCollection services, IConfiguration configuration)
+    {
+        var producerConfig = new ProducerConfig
+        {
+            BootstrapServers = configuration.GetSection("Kafka:BootstrapServers").Value
+        };
+
+        services.AddSingleton<IProducer<Null, string>>(sp => new ProducerBuilder<Null, string>(producerConfig).Build());
     }
 }
