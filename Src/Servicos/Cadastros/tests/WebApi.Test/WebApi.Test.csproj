@@ -20,7 +20,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\..\Aquiles.Infrastructure\Aquiles.Infrastructure.csproj" />
+    <ProjectReference Include="..\..\Aquiles.API\Aquiles.API.csproj" />
     <ProjectReference Include="..\Utils\CommonTestUtilities.csproj" />
   </ItemGroup>
 

@@ -2,7 +2,6 @@
 using Aquiles.Domain.Entities;
 using Aquiles.Exception;
 using FluentAssertions;
-using Microsoft.VisualStudio.TestPlatform.TestHost;
 using System.Net;
 using System.Text.Json;
 
