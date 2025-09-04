@@ -19,11 +19,11 @@ public class EnderecosController : BaseController
         return Created(string.Empty, result);
     }
 
-    [HttpGet]
+    [HttpGet("{clienteId}")]
     [ProducesResponseType(typeof(IList<ResponseEnderecoJson>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromServices] IGetAllEnderecoUseCase useCase)
+    public async Task<IActionResult> GetAll([FromServices] IGetAllEnderecoUseCase useCase, [FromRoute] Guid clienteId)
     {
-        var result = await useCase.Execute();
+        var result = await useCase.Execute(clienteId);
         return Ok(result);
     }
 }

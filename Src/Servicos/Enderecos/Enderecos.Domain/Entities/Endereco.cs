@@ -1,7 +1,6 @@
 ﻿namespace Enderecos.Domain.Entities;
 public class Endereco : BaseEntity
 {
-    public Guid UsuarioId { get; set; }
     public Guid ClienteId { get; set; }
     public string Logradouro { get; set; }
     public string Numero { get; set; }

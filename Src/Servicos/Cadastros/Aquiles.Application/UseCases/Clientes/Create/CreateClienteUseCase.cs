@@ -50,7 +50,6 @@ public class CreateClienteUseCase : ICreateClienteUseCase
         var evento = new ClienteEvent
         {
             ClienteId = cliente.Id,
-            UsuarioId = cliente.UsuarioId,
             Endereco = request.Endereco
         };
 

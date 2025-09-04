@@ -12,5 +12,5 @@ public class EnderecoRepository : IEnderecoWriteOnlyRepository, IEnderecoReadOnl
 
     public async Task Create(Endereco endereco) => await _context.Enderecos.AddAsync(endereco);
 
-    public async Task<IList<Endereco>> GetAll(Guid usuarioId) => await _context.Enderecos.AsNoTracking().Where(x => x.UsuarioId == usuarioId).ToListAsync();
+    public async Task<IList<Endereco>> GetAll(Guid clienteId) => await _context.Enderecos.AsNoTracking().Where(x => x.ClienteId == clienteId).ToListAsync();
 }

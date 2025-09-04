@@ -47,13 +47,12 @@ public class CreateClienteConsumerService : BackgroundService
 
                     if (evento != null)
                     {
-                        _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId} - Usuário {evento.UsuarioId}");
+                        _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId}");
 
                         using var scope = _scopeFactory.CreateScope();
                         var createEnderecoUseCase = scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>();
 
                         evento.Endereco.ClienteId = evento.ClienteId;
-                        evento.Endereco.UsuarioId = evento.UsuarioId;
                         await createEnderecoUseCase.Execute(evento.Endereco);
                     }
                 }

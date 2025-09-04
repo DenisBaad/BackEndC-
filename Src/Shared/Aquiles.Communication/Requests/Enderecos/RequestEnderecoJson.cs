@@ -1,7 +1,6 @@
 ﻿namespace Aquiles.Communication.Requests.Enderecos;
 public class RequestEnderecoJson
 {
-    public Guid UsuarioId { get; set; }
     public Guid ClienteId { get; set; }
     public string Logradouro { get; set; }
     public string Numero { get; set; }
