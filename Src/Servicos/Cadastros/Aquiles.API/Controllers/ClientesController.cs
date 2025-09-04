@@ -5,6 +5,7 @@ using Aquiles.Application.UseCases.Clientes.GetAll;
 using Aquiles.Application.UseCases.Clientes.GetById;
 using Aquiles.Application.UseCases.Clientes.Update;
 using Aquiles.Communication.Requests.Clientes;
+using Aquiles.Communication.Responses;
 using Aquiles.Communication.Responses.Clientes;
 using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -23,10 +24,10 @@ public class ClientesController : BaseController
     }
 
     [HttpGet]
-    [ProducesResponseType(typeof(IList<ResponseClientesJson>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> GetAll([FromServices] IGetAllClientesUseCase useCase)
+    [ProducesResponseType(typeof(PagedResult<ResponseClientesJson>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromServices] IGetAllClientesUseCase useCase, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = null)
     {
-        var result = await useCase.Execute();
+        var result = await useCase.Execute(pageNumber, pageSize, search);
         return Ok(result);
     }
 

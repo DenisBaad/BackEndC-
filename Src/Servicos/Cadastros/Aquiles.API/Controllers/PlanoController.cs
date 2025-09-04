@@ -3,6 +3,7 @@ using Aquiles.Application.UseCases.Planos.GetAll;
 using Aquiles.Application.UseCases.Planos.GetById;
 using Aquiles.Application.UseCases.Planos.Update;
 using Aquiles.Communication.Requests.Planos;
+using Aquiles.Communication.Responses;
 using Aquiles.Communication.Responses.Planos;
 using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +21,15 @@ public class PlanoController : BaseController
         var result = await useCase.Execute(request);
         return Created(string.Empty, result);
     }
-    
+
     [HttpGet]
-    [ProducesResponseType(typeof(IList<ResponsePlanoJson>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromServices] IGetAllPlanoUseCase useCase)
+    [ProducesResponseType(typeof(PagedResult<ResponsePlanoJson>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromServices] IGetAllPlanoUseCase useCase, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10, [FromQuery] string? search = null)
     {
-        var result = await useCase.Execute();
+        var result = await useCase.Execute(pageNumber, pageSize, search);
         return Ok(result);
     }
-    
+
     [HttpGet]
     [Route("{id}")]
     [ProducesResponseType(typeof(ResponsePlanoJson), StatusCodes.Status204NoContent)]

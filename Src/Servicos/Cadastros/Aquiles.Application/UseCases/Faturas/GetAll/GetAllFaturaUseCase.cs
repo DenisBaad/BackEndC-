@@ -1,4 +1,5 @@
-﻿using Aquiles.Communication.Responses.Faturas;
+﻿using Aquiles.Communication.Responses;
+using Aquiles.Communication.Responses.Faturas;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Domain.Repositories.Faturas;
 using Aquiles.Domain.Repositories.Planos;
@@ -25,11 +26,15 @@ public class GetAllFaturaUseCase : IGetAllFaturaUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<IList<ResponseFaturaJson>> Execute()
+    public async Task<PagedResult<ResponseFaturaJson>> Execute(int pageNumber, int pageSize)
     {
         var usuarioId = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
+        var faturasPaged = await _readOnlyRepository.GetAll(usuarioId, pageNumber, pageSize);
 
-        var faturas = await _readOnlyRepository.GetAll(usuarioId);
-        return _mapper.Map<IList<ResponseFaturaJson>>(faturas);
+        return new PagedResult<ResponseFaturaJson>
+        {
+            Items = _mapper.Map<IList<ResponseFaturaJson>>(faturasPaged.Items),
+            TotalCount = faturasPaged.TotalCount
+        };
     }
 }

@@ -1,4 +1,5 @@
-﻿using Aquiles.Communication.Responses.Planos;
+﻿using Aquiles.Communication.Responses;
+using Aquiles.Communication.Responses.Planos;
 using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.UsuarioLogado;
@@ -21,11 +22,15 @@ public class GetAllPlanoUseCase : IGetAllPlanoUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<IList<ResponsePlanoJson>> Execute()
+    public async Task<PagedResult<ResponsePlanoJson>> Execute(int pageNumber, int pageSize, string? search)
     {
         var usuarioId = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
+        var planosPaged = await _readOnlyRepository.GetAll(usuarioId, pageNumber, pageSize, search);
 
-        var plano = await _readOnlyRepository.GetAll(usuarioId);
-        return _mapper.Map<IList<ResponsePlanoJson>>(plano);
+        return new PagedResult<ResponsePlanoJson>
+        {
+            Items = _mapper.Map<IList<ResponsePlanoJson>>(planosPaged.Items),
+            TotalCount = planosPaged.TotalCount
+        };
     }
 }

@@ -1,4 +1,5 @@
-﻿using Aquiles.Communication.Responses.Clientes;
+﻿using Aquiles.Communication.Responses;
+using Aquiles.Communication.Responses.Clientes;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.UsuarioLogado;
@@ -21,12 +22,16 @@ public class GetAllClientesUseCase : IGetAllClientesUseCase
         _usuarioLogado = usuarioLogado;
     }
 
-    public async Task<IList<ResponseClientesJson>> Execute()
+    public async Task<PagedResult<ResponseClientesJson>> Execute(int pageNumber, int pageSize, string? search)
     {
         var usuarioId = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
+        var clientesPaged = await _clienteReadOnlyRepository.GetAll(usuarioId, pageNumber, pageSize, search);
 
-        var cliente = await _clienteReadOnlyRepository.GetAll(usuarioId);
-        return _mapper.Map<IList<ResponseClientesJson>>(cliente);
+        return new PagedResult<ResponseClientesJson>
+        {
+            Items = _mapper.Map<IList<ResponseClientesJson>>(clientesPaged.Items),
+            TotalCount = clientesPaged.TotalCount
+        };
     }
 }
 

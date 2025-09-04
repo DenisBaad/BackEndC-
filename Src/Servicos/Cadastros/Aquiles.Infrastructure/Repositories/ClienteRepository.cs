@@ -1,4 +1,5 @@
-﻿using Aquiles.Domain.Entities;
+﻿using Aquiles.Communication.Responses;
+using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
@@ -14,7 +15,21 @@ public class ClienteRepository : IClienteWriteOnlyRepository, IClienteReadOnlyRe
 
     public async Task<bool> ExistClienteWithCode(int code) => await _context.Clientes.AsNoTracking().AnyAsync(x => x.Codigo.Equals(code));
 
-    public async Task<IList<Cliente>> GetAll(Guid usuarioId) => await _context.Clientes.AsNoTracking().Where(x =>x.UsuarioId == usuarioId).ToListAsync();
+    public async Task<PagedResult<Cliente>> GetAll(Guid usuarioId, int pageNumber, int pageSize, string? search)
+    {
+        var query = _context.Clientes.AsNoTracking().Where(x => x.UsuarioId == usuarioId);
+
+        if (!string.IsNullOrWhiteSpace(search))
+            query = query.Where(x => x.Nome.Contains(search));
+
+        var totalCount = await query.CountAsync();
+        var items = await query
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync();
+
+        return new PagedResult<Cliente> { Items = items, TotalCount = totalCount };
+    }
 
     async Task<Cliente> IClienteReadOnlyRepository.GetById(Guid id) => await _context.Clientes.AsNoTracking().Where(x => x.Id == id).FirstOrDefaultAsync();
 

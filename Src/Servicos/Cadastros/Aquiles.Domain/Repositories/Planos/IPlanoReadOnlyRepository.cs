@@ -1,8 +1,9 @@
-﻿using Aquiles.Domain.Entities;
+﻿using Aquiles.Communication.Responses;
+using Aquiles.Domain.Entities;
 
 namespace Aquiles.Domain.Repositories.Planos;
 public interface IPlanoReadOnlyRepository
 {
-    public Task<IList<Plano>> GetAll(Guid usuarioId);
+    public Task<PagedResult<Plano>> GetAll(Guid usuarioId, int page, int pageSize, string? search);
     public Task<Plano> GetById(Guid id);
 }

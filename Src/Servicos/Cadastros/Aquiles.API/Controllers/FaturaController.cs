@@ -4,6 +4,7 @@ using Aquiles.Application.UseCases.Faturas.Update;
 using Aquiles.Application.UseCases.Relatorios.RelatorioFaturas;
 using Aquiles.Communication.Enums;
 using Aquiles.Communication.Requests.Faturas;
+using Aquiles.Communication.Responses;
 using Aquiles.Communication.Responses.Faturas;
 using Aquiles.Utils.Filters;
 using Microsoft.AspNetCore.Mvc;
@@ -20,15 +21,15 @@ public class FaturaController : BaseController
         await useCase.Execute(request);
         return Created(string.Empty, null);
     }
-    
+
     [HttpGet]
-    [ProducesResponseType(typeof(IList<ResponseFaturaJson>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> Get([FromServices] IGetAllFaturaUseCase useCase)
+    [ProducesResponseType(typeof(PagedResult<ResponseFaturaJson>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Get([FromServices] IGetAllFaturaUseCase useCase, [FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
     {
-        var result = await useCase.Execute();
+        var result = await useCase.Execute(pageNumber, pageSize);
         return Ok(result);
     }
-    
+
     [HttpPut]
     [Route("{id}")]
     [ProducesResponseType(StatusCodes.Status204NoContent)]

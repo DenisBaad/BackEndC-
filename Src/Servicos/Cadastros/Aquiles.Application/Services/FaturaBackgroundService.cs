@@ -44,14 +44,15 @@ public class FaturaBackgroundService : BackgroundService
 
             var hoje = DateTime.UtcNow;
 
-            var faturas = await readOnlyRepository.GetAll(null);
-            if (faturas == null || !faturas.Any())
+            var faturasPaged = await readOnlyRepository.GetAll(null, 1, 1000000);
+
+            if (faturasPaged == null || faturasPaged.Items == null || !faturasPaged.Items.Any())
             {
                 _logger.LogInformation("Nenhuma fatura encontrada.");
                 return;
             }
 
-            var faturasVencidas = faturas
+            var faturasVencidas = faturasPaged.Items
                 .Where(f => f.DataVencimento < hoje && f.DataPagamento == null)
                 .ToList();
 
