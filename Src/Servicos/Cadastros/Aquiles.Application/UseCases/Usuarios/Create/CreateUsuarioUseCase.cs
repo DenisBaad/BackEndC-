@@ -7,6 +7,7 @@ using Aquiles.Exception;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.Services;
 using AutoMapper;
+using Microsoft.Extensions.Logging;
 
 namespace Aquiles.Application.UseCases.Usuarios.Create;
 public class CreateUsuarioUseCase : ICreateUsuarioUseCase
@@ -16,36 +17,47 @@ public class CreateUsuarioUseCase : ICreateUsuarioUseCase
     private readonly IMapper _mapper;
     private readonly IUnitOfWork _unitOfWork;
     private readonly PasswordEncrypt _passwordEncript;
+    private readonly ILogger<CreateUsuarioUseCase> _logger;
 
     public CreateUsuarioUseCase(
         IUsuarioWriteOnlyRepository usuarioWriteOnlyRepository,
         IUsuarioReadOnlyRepository usuarioReadOnlyRepository,
         IMapper mapper,
         IUnitOfWork unitOfWork,
-        PasswordEncrypt passwordEncript)
+        PasswordEncrypt passwordEncript,
+        ILogger<CreateUsuarioUseCase> logger)
     {
         _usuarioWriteOnlyRepository = usuarioWriteOnlyRepository;
         _usuarioReadOnlyRepository = usuarioReadOnlyRepository;
         _mapper = mapper;
         _unitOfWork = unitOfWork;
         _passwordEncript = passwordEncript;
+        _logger = logger;
     }
 
     public async Task<ResponseUsuariosJson> Execute(RequestCreateUsuariosJson request)
     {
-        await Validate(request);
-        var usuario = _mapper.Map<Usuario>(request);
-        usuario.Senha = _passwordEncript.Encript(usuario.Senha);
-        usuario.Id = Guid.NewGuid();
-        await _usuarioWriteOnlyRepository.AddAsync(usuario);
-        await _unitOfWork.CommitAsync();
-
-        return new ResponseUsuariosJson
+        try
         {
-            Id = usuario.Id,
-            Nome = usuario.Nome,
-            Email = usuario.Email
-        };
+            await Validate(request);
+            var usuario = _mapper.Map<Usuario>(request);
+            usuario.Senha = _passwordEncript.Encript(usuario.Senha);
+            usuario.Id = Guid.NewGuid();
+            await _usuarioWriteOnlyRepository.AddAsync(usuario);
+            await _unitOfWork.CommitAsync();
+
+            return new ResponseUsuariosJson
+            {
+                Id = usuario.Id,
+                Nome = usuario.Nome,
+                Email = usuario.Email
+            };
+        }
+        catch (System.Exception ex)
+        {
+            _logger.LogError(ex, "Erro ao criar usuário com request: {request}", request);
+            throw;
+        }
     }
 
     private async Task Validate(RequestCreateUsuariosJson request)

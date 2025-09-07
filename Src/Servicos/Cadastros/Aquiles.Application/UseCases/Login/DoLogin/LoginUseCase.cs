@@ -3,6 +3,7 @@ using Aquiles.Communication.Responses.Login;
 using Aquiles.Domain.Repositories.Usuarios;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.Services;
+using Microsoft.Extensions.Logging;
 
 namespace Aquiles.Application.UseCases.Login.DoLogin;
 public class LoginUseCase : ILoginUseCase
@@ -10,15 +11,18 @@ public class LoginUseCase : ILoginUseCase
     private readonly IUsuarioReadOnlyRepository _usuarioReadOnlyRepository;
     private readonly PasswordEncrypt _passwordEncript;
     private readonly TokenController _tokenController;
+    private readonly ILogger<LoginUseCase> _logger;
 
     public LoginUseCase(
         IUsuarioReadOnlyRepository usuarioReadOnlyRepository, 
         PasswordEncrypt passwordEncript,
-        TokenController tokenController)
+        TokenController tokenController,
+        ILogger<LoginUseCase> logger)
     {
         _usuarioReadOnlyRepository = usuarioReadOnlyRepository;
         _passwordEncript = passwordEncript;
         _tokenController = tokenController;
+        _logger = logger;
     }
 
     public async Task<ResponseLoginJson> Execute(RequestLoginJson request)
@@ -43,7 +47,7 @@ public class LoginUseCase : ILoginUseCase
         {
             if (ex is not InvalidLoginException)
             {
-                throw new InvalidLoginException("E-mail ou senha inválidos.");
+                _logger.LogError(ex, "Erro ao executar login para o email {request}", request);
             }
 
             throw;

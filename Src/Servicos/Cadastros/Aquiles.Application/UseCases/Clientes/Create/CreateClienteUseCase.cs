@@ -9,6 +9,7 @@ using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 using Newtonsoft.Json;
 using Confluent.Kafka;
+using Microsoft.Extensions.Logging;
 
 namespace Aquiles.Application.UseCases.Clientes.Create;
 public class CreateClienteUseCase : ICreateClienteUseCase
@@ -19,6 +20,7 @@ public class CreateClienteUseCase : ICreateClienteUseCase
     private readonly IUnitOfWork _unitOfWork;
     private readonly IUsuarioLogado _usuarioLogado;
     private readonly IProducer<Null, string> _producer;
+    private readonly ILogger<CreateClienteUseCase> _logger;
 
     public CreateClienteUseCase(
         IClienteWriteOnlyRepository clienteWriteOnlyRepository,
@@ -26,7 +28,8 @@ public class CreateClienteUseCase : ICreateClienteUseCase
         IMapper mapper, 
         IUnitOfWork unitOfWork,
         IUsuarioLogado usuarioLogado,
-        IProducer<Null, string> producer)
+        IProducer<Null, string> producer,
+        ILogger<CreateClienteUseCase> logger)
     {
         _clienteWriteOnlyRepository = clienteWriteOnlyRepository;
         _clienteReadOnlyRepository = clienteReadOnlyRepository;
@@ -34,33 +37,42 @@ public class CreateClienteUseCase : ICreateClienteUseCase
         _unitOfWork = unitOfWork;
         _usuarioLogado = usuarioLogado;
         _producer = producer;
+        _logger = logger;
     }
 
     public async Task<ResponseClientesJson> Execute(RequestCreateClientesJson request)
     {
-        var usuario = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
-
-        await Validate(request);
-        var cliente = _mapper.Map<Cliente>(request);
-        cliente.Id = Guid.NewGuid();
-        cliente.UsuarioId = usuario;
-        await _clienteWriteOnlyRepository.AddAsync(cliente);
-        await _unitOfWork.CommitAsync();
-
-        var evento = new ClienteEvent
+        try
         {
-            ClienteId = cliente.Id,
-            Endereco = request.Endereco
-        };
+            var usuario = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
 
-        var message = new Message<Null, string>
+            await Validate(request);
+            var cliente = _mapper.Map<Cliente>(request);
+            cliente.Id = Guid.NewGuid();
+            cliente.UsuarioId = usuario;
+            await _clienteWriteOnlyRepository.AddAsync(cliente);
+            await _unitOfWork.CommitAsync();
+
+            var evento = new ClienteEvent
+            {
+                ClienteId = cliente.Id,
+                Endereco = request.Endereco
+            };
+
+            var message = new Message<Null, string>
+            {
+                Value = JsonConvert.SerializeObject(evento)
+            };
+
+            await _producer.ProduceAsync("clientes-criados", message);
+
+            return _mapper.Map<ResponseClientesJson>(cliente);
+        }
+        catch (System.Exception ex)
         {
-            Value = JsonConvert.SerializeObject(evento)
-        };
-
-        await _producer.ProduceAsync("clientes-criados", message);
-
-        return _mapper.Map<ResponseClientesJson>(cliente);
+            _logger.LogError(ex, "Erro ao criar cliente com request: {request}", request);
+            throw;
+        }
     }
 
     private async Task Validate(RequestCreateClientesJson request)
