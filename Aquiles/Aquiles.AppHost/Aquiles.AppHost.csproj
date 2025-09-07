@@ -1,6 +1,8 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
-  <PropertyGroup>
+	<Sdk Name="Aspire.AppHost.Sdk" Version="9.0.0" />
+
+	<PropertyGroup>
     <OutputType>Exe</OutputType>
     <TargetFramework>net8.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
@@ -10,16 +12,18 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Aspire.Hosting.AppHost" Version="8.2.2" />
+    <Compile Remove="Infra\Kafka\**" />
+    <EmbeddedResource Remove="Infra\Kafka\**" />
+    <None Remove="Infra\Kafka\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Aspire.Hosting.AppHost" Version="9.3.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\..\Src\Servicos\Cadastros\Aquiles.API\Aquiles.API.csproj" />
     <ProjectReference Include="..\..\Src\Servicos\Enderecos\Enderecos.API\Enderecos.API.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Infra\Kafka\" />
   </ItemGroup>
 
 </Project>

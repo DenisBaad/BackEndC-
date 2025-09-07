@@ -1,15 +1,15 @@
-using Enderecos.Application;
-using Enderecos.Infrastructure;
+using Aquiles.ServiceDefaults;
+using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Filters;
 using Aquiles.Utils.Middleware;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
-using Enderecos.Infrastructure.Context;
-using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Services;
-using Enderecos.Infrastructure.Services;
+using Enderecos.Application;
 using Enderecos.Application.Services.AutoMapper;
+using Enderecos.Infrastructure;
+using Enderecos.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 
 // Add services to the container.
 
@@ -61,19 +61,7 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddHostedService<CreateClienteConsumerService>();
 
-builder.Services.AddHealthChecks().AddDbContextCheck<EnderecosContext>();
-
 var app = builder.Build();
-
-app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
-{
-    AllowCachingResponses = false,
-    ResultStatusCodes =
-    {
-        [HealthStatus.Healthy] = StatusCodes.Status200OK,
-        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-    }
-});
 
 // Configure the HTTP request pipeline.
 
@@ -90,6 +78,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapPrometheusScrapingEndpoint();
 
 MigrateDatabase();
 

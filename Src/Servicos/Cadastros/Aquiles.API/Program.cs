@@ -2,14 +2,14 @@ using Aquiles.Application;
 using Aquiles.Application.Services;
 using Aquiles.Application.Services.AutoMapper;
 using Aquiles.Infrastructure;
-using Aquiles.Infrastructure.Context;
+using Aquiles.ServiceDefaults;
 using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Filters;
 using Aquiles.Utils.Middleware;
 using Aquiles.Utils.Services;
-using Microsoft.Extensions.Diagnostics.HealthChecks;
 
 var builder = WebApplication.CreateBuilder(args);
+builder.AddServiceDefaults();
 
 // Add services to the container.
 
@@ -61,19 +61,7 @@ builder.Services.AddSwaggerGen(option =>
 
 builder.Services.AddHostedService<FaturaBackgroundService>();
 
-builder.Services.AddHealthChecks().AddDbContextCheck<AquilesContext>();
-
 var app = builder.Build();
-
-app.MapHealthChecks("/Health", new Microsoft.AspNetCore.Diagnostics.HealthChecks.HealthCheckOptions
-{
-    AllowCachingResponses = false,
-    ResultStatusCodes =
-    {
-        [HealthStatus.Healthy] = StatusCodes.Status200OK,
-        [HealthStatus.Unhealthy] = StatusCodes.Status503ServiceUnavailable
-    }
-});
 
 // Configure the HTTP request pipeline.
 
@@ -90,6 +78,8 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.MapPrometheusScrapingEndpoint();
 
 MigrateDatabase();
 
