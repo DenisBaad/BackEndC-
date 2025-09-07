@@ -4,6 +4,7 @@ using Aquiles.Domain.Repositories.Planos;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Planos.Update;
 public class UpdatePlanoUseCase : IUpdatePlanoUseCase
@@ -38,7 +39,8 @@ public class UpdatePlanoUseCase : IUpdatePlanoUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao editar plano com request: {request}", request);
+            var jsonRequest = JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao editar plano com request: {request}", jsonRequest);
             throw;
         }
     }

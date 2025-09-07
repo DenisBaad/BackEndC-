@@ -6,6 +6,7 @@ using Enderecos.Domain.Entities;
 using Enderecos.Domain.Repositories;
 using Enderecos.Domain.Repositories.Enderecos;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Enderecos.Application.UseCases.Enderecos.Create;
 public class CreateEnderecoUseCase : ICreateEnderecoUseCase
@@ -44,7 +45,8 @@ public class CreateEnderecoUseCase : ICreateEnderecoUseCase
         }
         catch (Exception ex)
         {
-            _logger.LogError(ex, "Erro ao criar endereço com request: {request}", request);
+            var jsonRequest = JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao criar endereço com request: {request}", jsonRequest);
             throw;
         }
     }

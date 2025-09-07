@@ -7,6 +7,7 @@ using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Planos.Create;
 public class CreatePlanoUseCase : ICreatePlanoUseCase
@@ -52,7 +53,8 @@ public class CreatePlanoUseCase : ICreatePlanoUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao criar plano com request: {request}", request);
+            var jsonRequest = JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao criar plano com request: {request}", jsonRequest);
             throw;
         }
     }

@@ -6,6 +6,7 @@ using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Faturas.Create;
 public class CreateFaturaUseCase : ICreateFaturaUseCase
@@ -45,7 +46,8 @@ public class CreateFaturaUseCase : ICreateFaturaUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao criar fatura com request: {request}", request);
+            var jsonRequest = JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao criar fatura com request: {request}", jsonRequest);
             throw;
         }
     }

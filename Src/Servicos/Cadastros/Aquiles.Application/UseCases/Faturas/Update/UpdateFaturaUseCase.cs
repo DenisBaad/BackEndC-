@@ -4,6 +4,7 @@ using Aquiles.Domain.Repositories.Faturas;
 using Aquiles.Exception.AquilesException;
 using AutoMapper;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Faturas.Update;
 public class UpdateFaturaUseCase : IUpdateFaturaUseCase
@@ -38,7 +39,8 @@ public class UpdateFaturaUseCase : IUpdateFaturaUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao editar fatura com request: {request}", request);
+            var jsonRequest = JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao editar fatura com request: {request}", jsonRequest);
             throw;
         }
     }

@@ -10,6 +10,7 @@ using AutoMapper;
 using Newtonsoft.Json;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
+using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Clientes.Create;
 public class CreateClienteUseCase : ICreateClienteUseCase
@@ -70,7 +71,8 @@ public class CreateClienteUseCase : ICreateClienteUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao criar cliente com request: {request}", request);
+            var jsonRequest = System.Text.Json.JsonSerializer.Serialize(request, new JsonSerializerOptions { WriteIndented = true });
+            _logger.LogError(ex, "Erro ao criar cliente com request: {request}", jsonRequest);
             throw;
         }
     }

@@ -45,11 +45,7 @@ public class LoginUseCase : ILoginUseCase
         }
         catch (System.Exception ex)
         {
-            if (ex is not InvalidLoginException)
-            {
-                _logger.LogError(ex, "Erro ao executar login para o email {request}", request);
-            }
-
+            _logger.LogError(ex, "Erro ao executar login para o email {request}", request.Email);
             throw;
         }
     }

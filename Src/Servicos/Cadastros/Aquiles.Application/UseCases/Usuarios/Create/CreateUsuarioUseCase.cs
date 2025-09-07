@@ -55,7 +55,7 @@ public class CreateUsuarioUseCase : ICreateUsuarioUseCase
         }
         catch (System.Exception ex)
         {
-            _logger.LogError(ex, "Erro ao criar usuário com request: {request}", request);
+            _logger.LogError(ex, "Erro ao criar usuário com request: {request}", request.Email);
             throw;
         }
     }
