@@ -8,6 +8,7 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Enderecos.Infrastructure.Services;
+
 public class CreateClienteConsumerService : BackgroundService
 {
     private readonly ILogger<CreateClienteConsumerService> _logger;
@@ -24,9 +25,9 @@ public class CreateClienteConsumerService : BackgroundService
         _scopeFactory = scopeFactory;
     }
 
-    protected override Task ExecuteAsync(CancellationToken stoppingToken)
+    protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        Task.Run(async () =>
+        while (!stoppingToken.IsCancellationRequested)
         {
             var config = new ConsumerConfig
             {
@@ -35,34 +36,38 @@ public class CreateClienteConsumerService : BackgroundService
                 AutoOffsetReset = AutoOffsetReset.Earliest
             };
 
-            using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
-            consumer.Subscribe("clientes-criados");
-
-            try
+            using (var consumer = new ConsumerBuilder<Ignore, string>(config).Build())
             {
-                while (!stoppingToken.IsCancellationRequested)
+                consumer.Subscribe("clientes-criados");
+
+                using var cts = new CancellationTokenSource();
+                Console.CancelKeyPress += (_, e) => { e.Cancel = true; cts.Cancel(); };
+
+                try
                 {
-                    var cr = consumer.Consume(stoppingToken);
-                    var evento = JsonConvert.DeserializeObject<ClienteEvent>(cr.Message.Value);
-
-                    if (evento != null)
+                    while (true)
                     {
-                        _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId}");
+                        try
+                        {
+                            var consumeResult = consumer.Consume(cts.Token);
+                            var evento = JsonConvert.DeserializeObject<ClienteEvent>(consumeResult.Message.Value);
 
-                        using var scope = _scopeFactory.CreateScope();
-                        var createEnderecoUseCase = scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>();
+                            _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId}");
 
-                        evento.Endereco.ClienteId = evento.ClienteId;
-                        await createEnderecoUseCase.Execute(evento.Endereco);
+                            evento.Endereco.ClienteId = evento.ClienteId;
+                            await _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>().Execute(evento.Endereco);
+                        }
+                        catch (ConsumeException e)
+                        {
+                            _logger.LogInformation($"Erro ao consumir mensagem: {e.Error.Reason}");
+                        }
                     }
                 }
+                catch (OperationCanceledException)
+                {
+                    consumer.Close();
+                }
             }
-            catch (OperationCanceledException)
-            {
-                consumer.Close();
-            }
-        }, stoppingToken);
-
-        return Task.CompletedTask;
+        }
     }
 }
