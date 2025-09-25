@@ -1,4 +1,4 @@
-﻿using Aquiles.Communication.Contracts;
+﻿using Aquiles.Communication.Requests.Enderecos;
 using Confluent.Kafka;
 using Enderecos.Application.UseCases.Enderecos.Create;
 using Microsoft.Extensions.Configuration;
@@ -8,7 +8,6 @@ using Microsoft.Extensions.Logging;
 using Newtonsoft.Json;
 
 namespace Enderecos.Infrastructure.Services;
-
 public class CreateClienteConsumerService : BackgroundService
 {
     private readonly ILogger<CreateClienteConsumerService> _logger;
@@ -44,13 +43,12 @@ public class CreateClienteConsumerService : BackgroundService
                 try
                 {
                     var consumeResult = consumer.Consume(stoppingToken);
-                    var evento = JsonConvert.DeserializeObject<ClienteEvent>(consumeResult.Message.Value);
+                    var evento = JsonConvert.DeserializeObject<RequestEnderecoJson>(consumeResult.Message.Value);
 
-                    _logger.LogInformation("Novo cliente recebido: {ClienteId}", evento.ClienteId);
+                    _logger.LogInformation("Novo endereço recebido para ClienteId: {ClienteId}", evento.ClienteId);
 
-                    evento.Endereco.ClienteId = evento.ClienteId;
                     using var scope = _scopeFactory.CreateScope();
-                    await scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>().Execute(evento.Endereco);
+                    await scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>().Execute(evento);
                 }
                 catch (ConsumeException e)
                 {

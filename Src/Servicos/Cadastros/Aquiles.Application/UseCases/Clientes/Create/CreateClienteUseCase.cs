@@ -1,5 +1,4 @@
-﻿using Aquiles.Communication.Contracts;
-using Aquiles.Communication.Requests.Clientes;
+﻿using Aquiles.Communication.Requests.Clientes;
 using Aquiles.Communication.Responses.Clientes;
 using Aquiles.Domain.Entities;
 using Aquiles.Domain.Repositories;
@@ -7,9 +6,9 @@ using Aquiles.Domain.Repositories.Clientes;
 using Aquiles.Exception.AquilesException;
 using Aquiles.Utils.UsuarioLogado;
 using AutoMapper;
-using Newtonsoft.Json;
 using Confluent.Kafka;
 using Microsoft.Extensions.Logging;
+using Newtonsoft.Json;
 using System.Text.Json;
 
 namespace Aquiles.Application.UseCases.Clientes.Create;
@@ -45,26 +44,15 @@ public class CreateClienteUseCase : ICreateClienteUseCase
     {
         try
         {
-            var usuario = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
-
             await Validate(request);
             var cliente = _mapper.Map<Cliente>(request);
             cliente.Id = Guid.NewGuid();
-            cliente.UsuarioId = usuario;
+            cliente.UsuarioId = await _usuarioLogado.GetUsuario() ?? throw new InvalidLoginException("Usuário sem permissão");
             await _clienteWriteOnlyRepository.AddAsync(cliente);
             await _unitOfWork.CommitAsync();
-
-            var evento = new ClienteEvent
-            {
-                ClienteId = cliente.Id,
-                Endereco = request.Endereco
-            };
-
-            var message = new Message<Null, string>
-            {
-                Value = JsonConvert.SerializeObject(evento)
-            };
-
+            request.Endereco.ClienteId = cliente.Id;
+            
+            var message = new Message<Null, string>{ Value = JsonConvert.SerializeObject(request.Endereco) };
             await _producer.ProduceAsync("clientes-criados", message);
 
             return _mapper.Map<ResponseClientesJson>(cliente);
