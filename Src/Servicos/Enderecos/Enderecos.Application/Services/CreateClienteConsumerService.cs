@@ -27,47 +27,40 @@ public class CreateClienteConsumerService : BackgroundService
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
     {
-        while (!stoppingToken.IsCancellationRequested)
+        var config = new ConsumerConfig
         {
-            var config = new ConsumerConfig
+            BootstrapServers = _configuration["Kafka:BootstrapServers"],
+            GroupId = _configuration["Kafka:GroupId"],
+            AutoOffsetReset = AutoOffsetReset.Earliest
+        };
+
+        using var consumer = new ConsumerBuilder<Ignore, string>(config).Build();
+        consumer.Subscribe("clientes-criados");
+
+        try
+        {
+            while (!stoppingToken.IsCancellationRequested)
             {
-                BootstrapServers = _configuration.GetSection("Kafka:BootstrapServers").Value,
-                GroupId = _configuration.GetSection("Kafka:GroupId").Value,
-                AutoOffsetReset = AutoOffsetReset.Earliest
-            };
-
-            using (var consumer = new ConsumerBuilder<Ignore, string>(config).Build())
-            {
-                consumer.Subscribe("clientes-criados");
-
-                using var cts = new CancellationTokenSource();
-                Console.CancelKeyPress += (_, e) => { e.Cancel = true; cts.Cancel(); };
-
                 try
                 {
-                    while (true)
-                    {
-                        try
-                        {
-                            var consumeResult = consumer.Consume(cts.Token);
-                            var evento = JsonConvert.DeserializeObject<ClienteEvent>(consumeResult.Message.Value);
+                    var consumeResult = consumer.Consume(stoppingToken);
+                    var evento = JsonConvert.DeserializeObject<ClienteEvent>(consumeResult.Message.Value);
 
-                            _logger.LogInformation($"Novo cliente recebido: {evento.ClienteId}");
+                    _logger.LogInformation("Novo cliente recebido: {ClienteId}", evento.ClienteId);
 
-                            evento.Endereco.ClienteId = evento.ClienteId;
-                            await _scopeFactory.CreateScope().ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>().Execute(evento.Endereco);
-                        }
-                        catch (ConsumeException e)
-                        {
-                            _logger.LogInformation($"Erro ao consumir mensagem: {e.Error.Reason}");
-                        }
-                    }
+                    evento.Endereco.ClienteId = evento.ClienteId;
+                    using var scope = _scopeFactory.CreateScope();
+                    await scope.ServiceProvider.GetRequiredService<ICreateEnderecoUseCase>().Execute(evento.Endereco);
                 }
-                catch (OperationCanceledException)
+                catch (ConsumeException e)
                 {
-                    consumer.Close();
+                    _logger.LogError("Erro ao consumir mensagem: {Reason}", e.Error.Reason);
                 }
             }
+        }
+        catch (OperationCanceledException)
+        {
+            consumer.Close();
         }
     }
 }
