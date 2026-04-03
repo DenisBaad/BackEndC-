@@ -8,6 +8,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Planos;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace UseCases.Test.Planos.Update;
 public class UpdatePlanoUseCaseTest
@@ -30,8 +31,9 @@ public class UpdatePlanoUseCaseTest
     {
         var autoMapper = MapperBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        var logger = NullLogger<UpdatePlanoUseCase>.Instance; 
 
-        return new UpdatePlanoUseCase(updateOnlyPlanoRepository, unitOfWork, autoMapper);
+        return new UpdatePlanoUseCase(updateOnlyPlanoRepository, unitOfWork, autoMapper, logger);
     }
 
     [Fact]

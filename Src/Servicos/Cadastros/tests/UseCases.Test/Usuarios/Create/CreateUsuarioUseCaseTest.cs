@@ -7,6 +7,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Usuarios;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace UseCases.Test.Usuarios.Create;
 public class CreateUsuarioUseCaseTest
@@ -31,13 +32,14 @@ public class CreateUsuarioUseCaseTest
         var mapper = MapperBuilder.Build();
         var passwordEncripter = PasswordEncryptBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        var logger = NullLogger<CreateUsuarioUseCase>.Instance; 
 
         if (string.IsNullOrEmpty(email) == false)
         {
             usuarioReadOnlyRepositoryBuilder.ExistUserByEmail(email);
         }
 
-        return new CreateUsuarioUseCase(usuarioWriteOnlyRepository, usuarioReadOnlyRepositoryBuilder.Build(), mapper, unitOfWork, passwordEncripter);
+        return new CreateUsuarioUseCase(usuarioWriteOnlyRepository, usuarioReadOnlyRepositoryBuilder.Build(), mapper, unitOfWork, passwordEncripter, logger);
     }
 
     [Fact]

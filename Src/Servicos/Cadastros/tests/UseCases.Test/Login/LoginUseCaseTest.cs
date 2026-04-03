@@ -8,6 +8,7 @@ using CommonTestUtilities.Entities;
 using CommonTestUtilities.Repositories.Usuarios;
 using CommonTestUtilities.Token;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace UseCases.Test.Login;
 public class LoginUseCaseTest
@@ -35,7 +36,9 @@ public class LoginUseCaseTest
         var repository = new UsuarioReadOnlyRepositoryBuilder().DoLogin(usuario).Build();
         var encriptador = PasswordEncryptBuilder.Build();
         var token = TokenControllerBuilder.Build();
-        return new LoginUseCase(repository, encriptador, token);
+        var logger = NullLogger<LoginUseCase>.Instance; 
+
+        return new LoginUseCase(repository, encriptador, token, logger);
     }
 
     [Fact]

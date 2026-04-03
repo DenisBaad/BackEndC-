@@ -6,6 +6,7 @@ using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Planos;
 using CommonTestUtilities.Requests;
 using FluentAssertions;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace UseCases.Test.Planos.Create;
 public class CreatePlanoUseCaseTest
@@ -28,8 +29,9 @@ public class CreatePlanoUseCaseTest
         var writeOnlyRepository = PlanoWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
         var usuarioLogado = UsuarioLogadoBuilder.Build();
+        var logger = NullLogger<CreatePlanoUseCase>.Instance; 
 
-        return new CreatePlanoUseCase(autoMapper, writeOnlyRepository, unitOfWork, usuarioLogado);
+        return new CreatePlanoUseCase(autoMapper, writeOnlyRepository, unitOfWork, usuarioLogado, logger);
     }
 
     [Fact]

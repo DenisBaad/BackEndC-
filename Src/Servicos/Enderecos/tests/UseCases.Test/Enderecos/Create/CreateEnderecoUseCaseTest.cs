@@ -1,11 +1,12 @@
-﻿using Aquiles.Exception.AquilesException;
-using Aquiles.Exception;
+﻿using Aquiles.Exception;
+using Aquiles.Exception.AquilesException;
+using CommonTestUtilities.Mapper;
+using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Repositories.Enderecos;
 using CommonTestUtilities.Requests;
 using Enderecos.Application.UseCases.Enderecos.Create;
 using FluentAssertions;
-using CommonTestUtilities.Mapper;
-using CommonTestUtilities.Repositories;
+using Microsoft.Extensions.Logging.Abstractions;
 
 namespace UseCases.Test.Enderecos.Create;
 public class CreateEnderecoUseCaseTest
@@ -39,7 +40,8 @@ public class CreateEnderecoUseCaseTest
         var autoMapper = MapperBuilder.Build();
         var writeOnlyRepository = EnderecoWriteOnlyRepositoryBuilder.Build();
         var unitOfWork = UnitOfWorkBuilder.Build();
+        var logger = NullLogger<CreateEnderecoUseCase>.Instance; 
 
-        return new CreateEnderecoUseCase(autoMapper, writeOnlyRepository, unitOfWork);
+        return new CreateEnderecoUseCase(autoMapper, writeOnlyRepository, unitOfWork, logger);
     }
 }
