@@ -1,7 +1,7 @@
 using Aquiles.Application;
-using Aquiles.Application.Services;
 using Aquiles.Application.Services.AutoMapper;
 using Aquiles.Infrastructure;
+using Aquiles.Infrastructure.BackgroundServices.Faturas;
 using Aquiles.ServiceDefaults;
 using Aquiles.Utils.Extensions;
 using Aquiles.Utils.Filters;

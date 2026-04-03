@@ -6,7 +6,7 @@ using Aquiles.Utils.Services;
 using Enderecos.Application;
 using Enderecos.Application.Services.AutoMapper;
 using Enderecos.Infrastructure;
-using Enderecos.Infrastructure.Services;
+using Enderecos.Infrastructure.KafkaConsumer.Enderecos;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.AddServiceDefaults();
